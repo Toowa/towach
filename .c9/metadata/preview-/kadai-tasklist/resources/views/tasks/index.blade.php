@@ -1,0 +1,1 @@
+{"filter":false,"title":"[P] /kadai-tasklist/resources/views/tasks/index.blade.php","undoManager":{"mark":-1,"position":-1,"stack":[]},"preview":{"path":"/kadai-tasklist/resources/views/tasks/index.blade.php","previewer":"preview.browser"},"timestamp":1527056544113,"hash":"da39a3ee5e6b4b0d3255bfef95601890afd80709"}

@@ -1,0 +1,204 @@
+/*文字のフェードインの準備*/
+@-webkit-keyframes fade-in{
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+/*文字のフェードインの準備おわり*/
+
+/*画像のフェードイン準備*/
+@-webkit-keyframes fade-in2{
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+/*画像のフェードイン準備おわり*/
+
+/*画像の大きさと透明度設定*/
+.text-animated-one, .text-animated-two, .text-animated-three{
+  opacity: 0;
+  font-size: 3.5vw;
+  color: #bf0000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*一つ目の文*/
+.text-animated-one{
+  -webkit-animation:fade-in 3s;
+  animation-fill-mode: forwards;   
+}
+
+/*二つ目の文*/
+.text-animated-two{
+  -webkit-animation:fade-in 3s;
+  -webkit-animation-delay:3s;
+  animation-fill-mode: forwards;   
+}
+
+/*3つ目の文*/
+.text-animated-three{
+  -webkit-animation:fade-in 3s;
+  -webkit-animation-delay:6s;
+  animation-fill-mode: forwards;  
+}
+
+/*1つ目の画像*/
+.image-animated-four{
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-animation:fade-in2 3s;
+  -webkit-animation-delay:9s;
+  -webkit-backface-visibility: hidden;
+  animation-fill-mode: forwards;
+}
+
+/*二つ目の画像やじるし*/
+.image-animated-five{
+  opacity: 0;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-animation:fade-in2 3s;
+  -webkit-animation-delay:11s;
+  -webkit-backface-visibility: hidden;
+  animation-fill-mode: forwards;  
+}
+
+/*財布の場所設定*/
+#wallet{
+  padding: 50px;
+  background-color: rgb(220, 20, 60);
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 70%;
+  height: auto;
+}
+
+/*財布のhover設定*/
+#wallet:hover{
+    padding: 50px;
+  background-color: rgb(220, 20, 60);
+    content:url("walletafter.jpg");
+    width: 70%;
+    height: auto;
+}
+
+.walletPhrase{
+  position: absolute;
+  top:280%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+   text-align: center;
+}
+
+/*カフェの場所設定*/
+#cafe{
+  padding: 50px;
+  background-color: rgb(220, 20, 60);
+  position: absolute;
+  top:360%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 70%;
+  height: auto;
+}
+
+/*カフェのhover設定*/
+#cafe:hover{
+    padding: 50px;
+  background-color: rgb(220, 20, 60);
+    content:url("cafeafter.jpg");
+    width: 70%;
+    height: auto;
+}
+
+.cafePhrase{
+  position: absolute;
+  top:440%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+   text-align: center;
+}
+
+/*ポイントの場所設定*/
+#point{
+  padding: 50px;
+  background-color: rgb(220, 20, 60);
+  position: absolute;
+  top:520%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 70%;
+  height: auto;
+}
+
+/*ポイントのhover設定*/
+#point:hover{
+    padding: 50px;
+  background-color: rgb(220, 20, 60);
+    content:url("pointafter.jpg");
+      width: 70%;
+  height: auto;
+}
+
+.pointPhrase{
+  position: absolute;
+  top:600%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+   text-align: center;
+}
+
+.sen{
+  margin-top: 0;
+  border-top: solid 1px rgb(220, 20, 60);
+  border-bottom: solid 1px rgb(220, 20, 60);
+}
+
+.square_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: rgb(220, 20, 60) ;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.square_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+
+footer{
+  clear: both;
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+footer li > a:hover{
+  opacity:0.6;
+}

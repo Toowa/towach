@@ -1,0 +1,7 @@
+CREATE TABLE Kolkata.hito (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(100),
+    denger VARCHAR(100),
+    age INT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

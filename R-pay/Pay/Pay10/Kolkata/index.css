@@ -1,0 +1,197 @@
+/*スクロールが飛ばないようにする*/
+html{
+  overflow-y: scroll;
+}
+
+/*文字のフェードインの準備*/
+@-webkit-keyframes fade-in{
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+/*文字のフェードインの準備おわり*/
+
+/*画像のフェードイン準備*/
+@-webkit-keyframes fade-in2{
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+/*画像のフェードイン準備おわり*/
+
+/*画像の大きさと透明度設定*/
+.text-animated-one, .text-animated-two, .text-animated-three{
+  opacity: 0;
+  font-size: 3.5vw;
+  color: #bf0000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*一つ目の文*/
+.text-animated-one{
+  -webkit-animation:fade-in 3s;
+  animation-fill-mode: forwards;   
+}
+
+/*二つ目の文*/
+.text-animated-two{
+  -webkit-animation:fade-in 3s;
+  -webkit-animation-delay:3s;
+  animation-fill-mode: forwards;   
+}
+
+/*3つ目の文*/
+.text-animated-three{
+  -webkit-animation:fade-in 3s;
+  -webkit-animation-delay:6s;
+  animation-fill-mode: forwards;  
+}
+
+/*1つ目の画像*/
+.image-animated-four{
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-animation:fade-in2 3s;
+  -webkit-animation-delay:9s;
+  -webkit-backface-visibility: hidden;
+  animation-fill-mode: forwards;
+}
+
+/*二つ目の画像やじるし*/
+.image-animated-five{
+  opacity: 0;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-animation:fade-in2 3s;
+  -webkit-animation-delay:11s;
+  -webkit-backface-visibility: hidden;
+  animation-fill-mode: forwards;  
+}
+
+/*画像の基礎設定備*/
+#wallet, #cafe, #point{
+  padding: 50px;
+  background-color: rgb(220, 20, 60);
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 50%;
+  height: auto;
+}
+
+/*文字の基礎設定*/
+.walletPhrase, .cafePhrase, .pointPhrase{
+    position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+   text-align: center;
+}
+/*財布の場所設定*/
+#wallet{
+  top: 200%;
+}
+
+/*財布のhover設定*/
+#wallet:hover{
+    content:url("walletafter.jpg");
+}
+
+/*財布の説明場所*/
+.walletPhrase{
+  top:270%;
+}
+
+/*カフェの場所設定*/
+#cafe{
+  top:340%;
+}
+
+/*カフェのhover設定*/
+#cafe:hover{
+    content:url("cafeafter.jpg");
+}
+
+/*カフェの説明場所*/
+.cafePhrase{
+  top:410%;
+}
+
+/*ポイントの場所設定*/
+#point{
+  top:480%;
+}
+
+/*ポイントのhover設定*/
+#point:hover{
+    content:url("pointafter.jpg");
+}
+
+/*ポイントの説明場所*/
+.pointPhrase{
+  top:590%;
+}
+
+/*ボタンの準備*/
+.square_btn{
+    display: inline-block;
+    padding: 1em 8em;
+    font-size: 1.5vw;
+    text-decoration: none;
+    background:#DC143C;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #B3B8BB;
+    border-radius: 3px;
+}
+
+/*ボタンを押したら*/
+.square_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+
+/*ボタンをhoverしたら*/
+.square_btn:hover{
+    color: #333;
+    font-weight: 700;
+    text-decoration: none;
+  
+}
+
+#mail{
+  clear: both;
+  width: 400px;
+  margin: 0 auto 60px;
+}
+
+#mail:hover{
+  opacity:0.6;
+}
+
+/*フッター*/
+footer{
+  margin-top: 50px;
+  height: auto;
+  width: 100%;
+  background-color: grey;
+  float: left;
+}

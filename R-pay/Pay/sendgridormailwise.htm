@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# blog: http://ogp.me/ns/blog#">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="おはやっぷー かなへいだよ（＾ｖ＾） みなさん、kintoneを使っていてこんなこと思ったことありませんか？？ 「kintoneのデータを使って、ボタン一つでメールを送りたい。」 そんな要望をかなえるツールとしてよく候補...">
+<link rel="prev bookmark" href="https://blog.ismg.kdl.co.jp/kintone/kintone-radiobutton" title="kintoneアプリにラジオボタンを追加するときの注意点！">
+<link rel="next bookmark" href="https://blog.ismg.kdl.co.jp/community/jyosys-cafe/jyosys-cafe-in-kobe-3" title="情シス Café in Kobe #3 開催レポート">
+<meta name="author" content="KDL 情&#039;s Café BLOG">
+<link rel="start" href="https://blog.ismg.kdl.co.jp" title="TOP">
+<!-- OGP -->
+<meta property="og:type" content="blog">
+<meta property="og:site_name" content="KDL 情&#039;s Café BLOG">
+<meta property="og:description" content="おはやっぷー かなへいだよ（＾ｖ＾） みなさん、kintoneを使っていてこんなこと思ったことありませんか？？ 「kintoneのデータを使って、ボタン一つでメールを送りたい。」 そんな要望をかなえるツールとしてよく候補...">
+<meta property="og:title" content="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？ | KDL 情&#039;s Café BLOG">
+<meta property="og:url" content="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise">
+<meta property="og:image" content="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256.png">
+<!-- twitter:card -->
+<meta name="twitter:card" content="summary_large_image">
+<title>SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？ | KDL 情&#039;s Café BLOG</title>
+
+<!-- All in One SEO Pack 2.5 by Michael Torbert of Semper Fi Web Design[1423,1509] -->
+<meta name="description" content="おはやっぷー かなへいだよ（＾ｖ＾） みなさん、kintoneを使っていてこんなこと思ったことありませんか？？ 「kintoneのデータを使って、ボタン一つでメールを送りたい。」 そんな要望をかなえるツールとしてよく候補としてあがるのがこれ！ SendGrid メールワイズ kMailer (←NEW!2018年1月) そこで、それぞれの特徴を比較して、 どちらがよりkintoneに向いているかを検証したいと思います。 今から導入をご検討されている方、ぜひご参考ください！ ※あくまでも、システムの知識が薄い著者が、薄いなりに触ってみた感想です！ ※画面キャプチャは本記事投稿時のものであるため、変更となっている可能性があります。"/>
+
+<link rel="canonical" href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise"/>
+<!-- /all in one seo pack -->
+<link rel='dns-prefetch' href='//s.w.org'/>
+<link rel="alternate" type="application/rss+xml" title="KDL 情&#039;s Café BLOG &raquo; フィード" href="https://blog.ismg.kdl.co.jp/feed"/>
+<link rel="alternate" type="application/rss+xml" title="KDL 情&#039;s Café BLOG &raquo; コメントフィード" href="https://blog.ismg.kdl.co.jp/comments/feed"/>
+<link rel="alternate" type="application/rss+xml" title="KDL 情&#039;s Café BLOG &raquo; SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？ のコメントのフィード" href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise/feed"/>
+		<script type="text/javascript">window._wpemojiSettings={"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.4\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/blog.ismg.kdl.co.jp\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.5"}};!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56692,8205,9792,65039],[55357,56692,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='crayon-css' href='https://blog.ismg.kdl.co.jp/wp-content/plugins/crayon-syntax-highlighter/css/min/crayon.min.css?ver=_2.7.2_beta' type='text/css' media='all'/>
+<link rel='stylesheet' id='ts_fab_css-css' href='https://blog.ismg.kdl.co.jp/wp-content/plugins/fancier-author-box/css/ts-fab.min.css?ver=1.4' type='text/css' media='all'/>
+<link rel='stylesheet' id='pz-linkcard-css' href='//blog.ismg.kdl.co.jp/wp-content/uploads/pz-linkcard/style.css?ver=4.9.5' type='text/css' media='all'/>
+<link rel='stylesheet' id='toc-screen-css' href='https://blog.ismg.kdl.co.jp/wp-content/plugins/table-of-contents-plus/screen.min.css?ver=1509' type='text/css' media='all'/>
+<link rel='stylesheet' id='wordpress-popular-posts-css-css' href='https://blog.ismg.kdl.co.jp/wp-content/plugins/wordpress-popular-posts/public/css/wpp.css?ver=4.0.13' type='text/css' media='all'/>
+<link rel='stylesheet' id='bootstrap-css' href='https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/css/bootstrap.min.css?ver=4.9.5' type='text/css' media='all'/>
+<link rel='stylesheet' id='icomoon-css' href='https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/css/icomoon.css?ver=4.9.5' type='text/css' media='all'/>
+<link rel='stylesheet' id='liquid-style-css' href='https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/style.css?ver=0.9.7.4' type='text/css' media='all'/>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<script type='text/javascript'>//<![CDATA[
+var CrayonSyntaxSettings={"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"https:\/\/blog.ismg.kdl.co.jp\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};var CrayonSyntaxStrings={"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+//]]></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/plugins/crayon-syntax-highlighter/js/min/crayon.min.js?ver=_2.7.2_beta'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/plugins/fancier-author-box/js/ts-fab.min.js?ver=1.4'></script>
+<script type='text/javascript'>//<![CDATA[
+var wpp_params={"sampling_active":"","sampling_rate":"100","ajax_url":"https:\/\/blog.ismg.kdl.co.jp\/wp-admin\/admin-ajax.php","action":"update_views_ajax","ID":"1176","token":"c37d39f84c"};
+//]]></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/plugins/wordpress-popular-posts/public/js/wpp.js?ver=4.0.13'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/js/bootstrap.min.js?ver=4.9.5'></script>
+<link rel='https://api.w.org/' href='https://blog.ismg.kdl.co.jp/wp-json/'/>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://blog.ismg.kdl.co.jp/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://blog.ismg.kdl.co.jp/wp-includes/wlwmanifest.xml"/> 
+<link rel='prev' title='kintoneアプリにラジオボタンを追加するときの注意点！' href='https://blog.ismg.kdl.co.jp/kintone/kintone-radiobutton'/>
+<link rel='next' title='情シス Café in Kobe #3 開催レポート' href='https://blog.ismg.kdl.co.jp/community/jyosys-cafe/jyosys-cafe-in-kobe-3'/>
+<link rel='shortlink' href='https://blog.ismg.kdl.co.jp/?p=1176'/>
+<link rel="alternate" type="application/json+oembed" href="https://blog.ismg.kdl.co.jp/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.ismg.kdl.co.jp%2Fkintone%2Fsendgridormailwise"/>
+<link rel="alternate" type="text/xml+oembed" href="https://blog.ismg.kdl.co.jp/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fblog.ismg.kdl.co.jp%2Fkintone%2Fsendgridormailwise&#038;format=xml"/>
+	<style>
+	.ts-fab-list li a { background-color: #e9e9e9; border: 1px solid #e9e9e9; color: #333; }
+	.ts-fab-list li.active a { background-color: #333; border: 1px solid #333; color: #fff; }
+	.ts-fab-tab { background-color: #f9f9f9; border: 2px solid #eceeef; color: #555; }
+	</style>
+	
+<!-- BEGIN: WP Social Bookmarking Light HEAD -->
+
+
+<script>(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.7";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>
+
+<style type="text/css">
+    .wp_social_bookmarking_light{
+    border: 0 !important;
+    padding: 10px 0 20px 0 !important;
+    margin: 0 !important;
+}
+.wp_social_bookmarking_light div{
+    float: left !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 5px 0px 0 !important;
+    min-height: 30px !important;
+    line-height: 18px !important;
+    text-indent: 0 !important;
+}
+.wp_social_bookmarking_light img{
+    border: 0 !important;
+    padding: 0;
+    margin: 0;
+    vertical-align: top !important;
+}
+.wp_social_bookmarking_light_clear{
+    clear: both !important;
+}
+#fb-root{
+    display: none;
+}
+.wsbl_twitter{
+    width: 100px;
+}
+.wsbl_facebook_like iframe{
+    max-width: none !important;
+}
+.wsbl_pinterest a{
+    border: 0px !important;
+}
+</style>
+<!-- END: WP Social Bookmarking Light HEAD -->
+
+<!-- BEGIN GADWP v5.3.2 Universal Analytics - https://deconf.com/google-analytics-dashboard-wordpress/ -->
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create','UA-83619614-1','auto');ga('send','pageview');</script>
+<!-- END GADWP Universal Analytics -->
+
+<!--[if lt IE 9]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- GA -->
+<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create','UA-83619614-1','auto');ga('send','pageview');</script>
+<!-- CSS -->
+<style type="text/css">
+    /*  customize  */
+                                    /*  custom head  */
+            body {
+  line-height: 1.75;
+  font-size: 16px;
+  font-family: "Lucida Grande", "segoe UI", "ヒラギノ丸ゴ ProN W4", "Hiragino Maru Gothic Pro", "游ゴシック", YuGothic, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Verdana, "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+.h1, h1 {
+  font-size: 1.5em;
+}
+
+.post_body h2 {
+  background-color: transparent;
+  font-size: 1.2em;
+  border-bottom: 1px solid #b8b8b8;
+}
+
+.post_body h3 {
+  font-size: 1.1em;
+}
+
+div.post_body a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+div.post_body a:hover, a:focus {
+  color: #0a6ebd;
+  text-decoration: none;
+}
+
+
+/*Pocketボタンの幅調整*/
+.wsbl_pocket {
+ width: 95px;
+}
+/*Google+ボタンの幅調整*/
+.wsbl_google_plus_one {
+ width: 58px;
+}
+/*twitterボタンの幅調整*/
+.wsbl_twitter {
+ width: 69px !important;
+}
+    </style>
+</head>
+
+<body class="post-template-default single single-post postid-1176 single-format-standard category_33">
+
+<!-- FB -->
+<div id="fb-root"></div>
+<script>(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.4";fjs.parentNode.insertBefore(js,fjs);}(document,'script','facebook-jssdk'));</script>
+
+<a id="top"></a>
+ <div class="wrapper">
+        <div class="head">
+    <div class="headline">
+      <div class="logo_text">
+                    <div class="subttl"></div>
+              </div>
+     <div class="container">
+      <div class="row">
+       <div class="col-sm-12">
+        <a href="https://blog.ismg.kdl.co.jp" title="KDL 情&#039;s Café BLOG" class="logo">
+                       KDL 情&#039;s Café BLOG                   </a>
+       </div>
+      </div>
+     </div>
+    </div>
+    
+    <nav class="navbar navbar-light bg-faded">
+     <div class="container">
+        <!-- Global Menu -->
+                <ul id="menu-menu" class="nav navbar-nav nav navbar-nav"><li id="menu-item-1283" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1283 nav-item hidden-sm-down"><a href="https://blog.ismg.kdl.co.jp/about">ABOUT</a></li>
+<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32 nav-item hidden-sm-down"><a href="https://blog.ismg.kdl.co.jp/community">COMMUNITY</a>
+<ul class="sub-menu">
+	<li id="menu-item-27" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27 nav-item hidden-sm-down"><a href="https://ismg-cafe-kobe.doorkeeper.jp">情シス Café in Kobe</a></li>
+	<li id="menu-item-28" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28 nav-item hidden-sm-down"><a href="https://kdl-infra.doorkeeper.jp">神戸デジタル・ラボ_インフラ勉強会</a></li>
+	<li id="menu-item-29" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-29 nav-item hidden-sm-down"><a href="https://kdlkintone.doorkeeper.jp">神戸デジタル・ラボ_kintone勉強会</a></li>
+</ul>
+</li>
+<li id="menu-item-1037" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1037 nav-item hidden-sm-down"><a href="https://blog.ismg.kdl.co.jp/service">SERVICE</a>
+<ul class="sub-menu">
+	<li id="menu-item-1039" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1039 nav-item hidden-sm-down"><a href="http://www.kdl.co.jp/service/cloudcollection/aws/">クラウドコレクション for Amazon Web Services</a></li>
+	<li id="menu-item-1038" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1038 nav-item hidden-sm-down"><a href="http://www.kdl.co.jp/service/cloudcollection/kintone/">クラウドコレクション for kintone</a></li>
+	<li id="menu-item-1040" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1040 nav-item hidden-sm-down"><a href="http://kintone.cloudcollection.jp/">クラウドコレクション for kintone 専用サイト</a></li>
+</ul>
+</li>
+</ul>          <button type="button" class="navbar-toggle collapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+             </div>
+     <div class="container searchform_nav none hidden-md-up">
+      <div class="searchform">  
+    <form action="https://blog.ismg.kdl.co.jp/" method="get" class="search-form">
+        <fieldset class="form-group">
+            <label class="screen-reader-text">Search</label>
+            <input type="text" name="s" value="" placeholder="Search" class="form-control search-text">
+            <button type="submit" value="Search" class="btn btn-primary"><i class="icon icon-search"></i></button>
+        </fieldset>
+    </form>
+</div>     </div>
+    </nav>
+    
+    </div><!-- /head -->
+  
+         
+    <div class="detail post-1176 post type-post status-publish format-standard has-post-thumbnail hentry category-kintone tag-kintone">
+        <div class="container">
+          <div class="row">
+           <div class="col-lg-9 mainarea">
+
+                                 
+            <h1 class="ttl_h1 entry-title" title="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？">SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？</h1>
+            
+            <!-- pan -->
+            <ul class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <li><a href="https://blog.ismg.kdl.co.jp" itemprop="url"><span itemprop="title">TOP</span></a></li>
+              <li><a itemprop="url" href="https://blog.ismg.kdl.co.jp/category/kintone"><span itemprop="title">kintone</span></a></li>              <li class="active">SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？</li>
+            </ul>
+            
+           
+            <div class="detail_text">
+
+                
+                <div class="post_meta">
+                <span class="post_time">
+                 <i class="icon icon-clock" title="2017/12/22 16:13"></i> <i class="icon icon-spinner11" title="2018/03/16 13:28"></i> <time class="date updated">2017-12-22</time>
+                </span>
+                                    <span class="post_cat"><i class="icon icon-folder"></i>
+                    <a href="https://blog.ismg.kdl.co.jp/category/kintone" rel="category tag">kintone</a>                    </span>
+                                </div>
+                
+                <script data-pagespeed-no-defer>//<![CDATA[
+(function(){for(var g="function"==typeof Object.defineProperties?Object.defineProperty:function(b,c,a){if(a.get||a.set)throw new TypeError("ES3 does not support getters and setters.");b!=Array.prototype&&b!=Object.prototype&&(b[c]=a.value)},h="undefined"!=typeof window&&window===this?this:"undefined"!=typeof global&&null!=global?global:this,k=["String","prototype","repeat"],l=0;l<k.length-1;l++){var m=k[l];m in h||(h[m]={});h=h[m]}var n=k[k.length-1],p=h[n],q=p?p:function(b){var c;if(null==this)throw new TypeError("The 'this' value for String.prototype.repeat must not be null or undefined");c=this+"";if(0>b||1342177279<b)throw new RangeError("Invalid count value");b|=0;for(var a="";b;)if(b&1&&(a+=c),b>>>=1)c+=c;return a};q!=p&&null!=q&&g(h,n,{configurable:!0,writable:!0,value:q});var t=this;function u(b,c){var a=b.split("."),d=t;a[0]in d||!d.execScript||d.execScript("var "+a[0]);for(var e;a.length&&(e=a.shift());)a.length||void 0===c?d[e]?d=d[e]:d=d[e]={}:d[e]=c};function v(b){var c=b.length;if(0<c){for(var a=Array(c),d=0;d<c;d++)a[d]=b[d];return a}return[]};function w(b){var c=window;if(c.addEventListener)c.addEventListener("load",b,!1);else if(c.attachEvent)c.attachEvent("onload",b);else{var a=c.onload;c.onload=function(){b.call(this);a&&a.call(this)}}};var x;function y(b,c,a,d,e){this.h=b;this.j=c;this.l=a;this.f=e;this.g={height:window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight,width:window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth};this.i=d;this.b={};this.a=[];this.c={}}function z(b,c){var a,d,e=c.getAttribute("data-pagespeed-url-hash");if(a=e&&!(e in b.c))if(0>=c.offsetWidth&&0>=c.offsetHeight)a=!1;else{d=c.getBoundingClientRect();var f=document.body;a=d.top+("pageYOffset"in window?window.pageYOffset:(document.documentElement||f.parentNode||f).scrollTop);d=d.left+("pageXOffset"in window?window.pageXOffset:(document.documentElement||f.parentNode||f).scrollLeft);f=a.toString()+","+d;b.b.hasOwnProperty(f)?a=!1:(b.b[f]=!0,a=a<=b.g.height&&d<=b.g.width)}a&&(b.a.push(e),b.c[e]=!0)}y.prototype.checkImageForCriticality=function(b){b.getBoundingClientRect&&z(this,b)};u("pagespeed.CriticalImages.checkImageForCriticality",function(b){x.checkImageForCriticality(b)});u("pagespeed.CriticalImages.checkCriticalImages",function(){A(x)});function A(b){b.b={};for(var c=["IMG","INPUT"],a=[],d=0;d<c.length;++d)a=a.concat(v(document.getElementsByTagName(c[d])));if(a.length&&a[0].getBoundingClientRect){for(d=0;c=a[d];++d)z(b,c);a="oh="+b.l;b.f&&(a+="&n="+b.f);if(c=!!b.a.length)for(a+="&ci="+encodeURIComponent(b.a[0]),d=1;d<b.a.length;++d){var e=","+encodeURIComponent(b.a[d]);131072>=a.length+e.length&&(a+=e)}b.i&&(e="&rd="+encodeURIComponent(JSON.stringify(B())),131072>=a.length+e.length&&(a+=e),c=!0);C=a;if(c){d=b.h;b=b.j;var f;if(window.XMLHttpRequest)f=new XMLHttpRequest;else if(window.ActiveXObject)try{f=new ActiveXObject("Msxml2.XMLHTTP")}catch(r){try{f=new ActiveXObject("Microsoft.XMLHTTP")}catch(D){}}f&&(f.open("POST",d+(-1==d.indexOf("?")?"?":"&")+"url="+encodeURIComponent(b)),f.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),f.send(a))}}}function B(){var b={},c;c=document.getElementsByTagName("IMG");if(!c.length)return{};var a=c[0];if(!("naturalWidth"in a&&"naturalHeight"in a))return{};for(var d=0;a=c[d];++d){var e=a.getAttribute("data-pagespeed-url-hash");e&&(!(e in b)&&0<a.width&&0<a.height&&0<a.naturalWidth&&0<a.naturalHeight||e in b&&a.width>=b[e].o&&a.height>=b[e].m)&&(b[e]={rw:a.width,rh:a.height,ow:a.naturalWidth,oh:a.naturalHeight})}return b}var C="";u("pagespeed.CriticalImages.getBeaconData",function(){return C});u("pagespeed.CriticalImages.Run",function(b,c,a,d,e,f){var r=new y(b,c,a,e,f);x=r;d&&w(function(){window.setTimeout(function(){A(r)},0)})});})();pagespeed.CriticalImages.Run('/mod_pagespeed_beacon','https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise','bfgHp_XldL',true,false,'JVrVuY_DGTI');
+//]]></script><img width="256" height="256" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256.png 256w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256-150x150.png 150w" sizes="(max-width: 256px) 100vw, 256px" data-pagespeed-url-hash="1406660126" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/>                
+                                
+                <!-- content -->
+                <div class="post_body"><div class='wp_social_bookmarking_light'>
+            <div class="wsbl_facebook_like"><div id="fb-root"></div><fb:like href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" layout="button_count" action="like" width="100" share="true" show_faces="false"></fb:like></div>
+            <div class="wsbl_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" data-text="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" data-lang="ja">Tweet</a></div>
+            <div class="wsbl_hatena_button"><a href="//b.hatena.ne.jp/entry/https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" class="hatena-bookmark-button" data-hatena-bookmark-title="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"> <img src="//b.hatena.ne.jp/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" data-pagespeed-url-hash="2725910809" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a><script type="text/javascript" src="//b.hatena.ne.jp/js/bookmark_button.js" charset="utf-8" async="async"></script></div>
+            <div class="wsbl_google_plus_one"><g:plusone size="medium" annotation="bubble" href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise"></g:plusone></div>
+            <div class="wsbl_pocket"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" data-pocket-count="horizontal" data-pocket-align="left">Pocket</a><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script></div>
+    </div>
+<br class='wp_social_bookmarking_light_clear'/>
+<p>おはやっぷー<br/>
+かなへいだよ（＾ｖ＾）</p>
+<p>みなさん、kintoneを使っていてこんなこと思ったことありませんか？？</p>
+<p><strong>「kintoneのデータを使って、ボタン一つでメールを送りたい。」</strong></p>
+<p>そんな要望をかなえるツールとしてよく候補としてあがるのがこれ！</p>
+<ul>
+<li><strong>SendGrid</strong>  </li>
+<li><strong>メールワイズ</strong>  </li>
+<li><strong>kMailer (←NEW!2018年1月)</strong></li>
+</ul>
+<p>そこで、それぞれの特徴を比較して、<br/>
+どちらがよりkintoneに向いているかを検証したいと思います。</p>
+<p>今から導入をご検討されている方、ぜひご参考ください！</p>
+<p><span style="color: red">※あくまでも、システムの知識が薄い著者が、薄いなりに触ってみた感想です！<br/>
+※画面キャプチャは本記事投稿時のものであるため、変更となっている可能性があります。</span></p>
+<div id="toc_container" class="no_bullets"><p class="toc_title">目次</p><ul class="toc_list"><li><a href="#SendGrid"><span class="toc_number toc_depth_1">1</span> SendGrid</a><ul><li><a href="#i"><span class="toc_number toc_depth_2">1.1</span> 料金は？</a></li><li><a href="#SendGridkintone"><span class="toc_number toc_depth_2">1.2</span> SendGridとkintoneの連携方法</a><ul><li><a href="#SendGrid-2"><span class="toc_number toc_depth_3">1.2.1</span> まずはSendGridの利用登録！</a></li><li><a href="#API"><span class="toc_number toc_depth_3">1.2.2</span> APIキーを発行する</a></li><li><a href="#i-2"><span class="toc_number toc_depth_3">1.2.3</span> メールテンプレートを作成する</a></li><li><a href="#kintoneSendGrid"><span class="toc_number toc_depth_3">1.2.4</span> kintone×SendGridプラグインを設定する</a></li></ul></li></ul></li><li><a href="#i-3"><span class="toc_number toc_depth_1">2</span> メールワイズ</a><ul><li><a href="#i-4"><span class="toc_number toc_depth_2">2.1</span> 料金は？</a></li><li><a href="#kintone"><span class="toc_number toc_depth_2">2.2</span> メールワイズとkintoneを連携方法</a><ul><li><a href="#i-5"><span class="toc_number toc_depth_3">2.2.1</span> まずはメールワイズのお試し申込！</a></li><li><a href="#i-6"><span class="toc_number toc_depth_3">2.2.2</span> メールサーバの設定</a></li><li><a href="#kintone-2"><span class="toc_number toc_depth_3">2.2.3</span> kintoneにアプリを追加</a><ul><li><a href="#i-7"><span class="toc_number toc_depth_4">2.2.3.1</span> メールのテンプレートアプリの作成</a></li><li><a href="#i-8"><span class="toc_number toc_depth_4">2.2.3.2</span> メールワイズと連携するアプリの作成</a></li></ul></li><li><a href="#i-9"><span class="toc_number toc_depth_3">2.2.4</span> プラグインを追加し設定する</a></li></ul></li></ul></li><li><a href="#kMailerNew20181"><span class="toc_number toc_depth_1">3</span>  kMailer（New!2018年1月）</a><ul><li><a href="#i-10"><span class="toc_number toc_depth_2">3.1</span>  料金は？</a></li><li><a href="#kMailerkintone"><span class="toc_number toc_depth_2">3.2</span> kMailerとkintoneの連携方法</a><ul><li><a href="#kintone-3"><span class="toc_number toc_depth_3">3.2.1</span>  kintoneアプリを作成する。</a></li><li><a href="#kMailer"><span class="toc_number toc_depth_3">3.2.2</span>  kMailerの無料お試し申込</a></li><li><a href="#kMailer-2"><span class="toc_number toc_depth_3">3.2.3</span>  kMailerにログインし、初期設定をする</a></li><li><a href="#kMailer-3"><span class="toc_number toc_depth_3">3.2.4</span>  kMailerでメールセットを作成する</a></li><li><a href="#kMailer-4"><span class="toc_number toc_depth_3">3.2.5</span>  kMailerでメールのテンプレートを作成する</a></li><li><a href="#i-11"><span class="toc_number toc_depth_3">3.2.6</span>  宛先管理アプリからメールを送信する。</a></li></ul></li></ul></li><li><a href="#i-12"><span class="toc_number toc_depth_1">4</span> 色んな切り口からの比較表</a></li><li><a href="#i-13"><span class="toc_number toc_depth_1">5</span> まとめ</a></li></ul></div>
+<h1><span id="SendGrid">SendGrid</span></h1>
+<p>SendGridとは、クラウドベースのメール配信サービスです。<br/>
+アカウントを取得するだけですぐに利用でき、<br/>
+簡単・確実にメールを送信することが出来ます。</p>
+<p>高いメール到達率、豊富なAPIなどが世界中で指示を集め、月間300億以上を配信しているそう。<br/>
+※<a href="https://sendgrid.kke.co.jp/">公式ページ</a>から引用</p>
+<h2><span id="i">料金は？</span></h2>
+<p>SendGridは、月に送るメール数によって、料金が5通りに分かれています。<br/>
+月12000通までであれば、フリープランで利用できるので、<br/>
+小規模なサービスやフリーランスエンジニアの強い味方ですね。</p>
+<p>詳しくは<a href="https://sendgrid.kke.co.jp/plan/">公式ページ</a>をチェック！</p>
+<h2><span id="SendGridkintone">SendGridとkintoneの連携方法</span></h2>
+<p>さっそくkintoneとSendGridを連携してみます。<br/>
+参考にしたのはこのページです。<br/>
+プラグインもこのページに記載されているものを利用させていただきました！<br/>
+<div class="linkcard"><div class="lkc-external-wrap"><a class="no_icon" href="https://sendgrid.kke.co.jp/blog/?p=4248" target="_blank"><div class="lkc-card"><div class="lkc-info"><span class="lkc-domain"><img class="lkc-favicon" src="https://www.google.com/s2/favicons?domain=sendgrid.kke.co.jp" alt="" width=16 height=16 data-pagespeed-url-hash="1686639927" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/>&nbsp;ブログ | SendGrid</span>&nbsp;<span class="lkc-share"> <span class="lkc-sns-fb">200&nbsp;shares</span> <span class="lkc-sns-hb">5&nbsp;users</span></span></div><div class="lkc-content"><span class="lkc-thumbnail"><img class="lkc-thumbnail-img" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fsendgrid.kke.co.jp%2Fblog%2F%3Fp%3D4248?w=100" alt="" data-pagespeed-url-hash="853815689" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></span><span class="lkc-title">SendGrid kintone プラグインを公開しました | SendGridブログ</span><div class="lkc-excerpt">はじめに 今回は、サイボウズ株式会社が提供する「kintone」というクラウドベースのアプリケーションプラットフォームからSendGridを経由してメールを送るプラグインをご紹介します。 kintoneを使うとWebアプリケーションを非常に簡単に作ることができます。テンプレ...</div></div><div class="clear"></div></div></a></div></div></p>
+<h3><span id="SendGrid-2">まずはSendGridの利用登録！</span></h3>
+<p>まずはSendGrid公式ページの【無料で始める】をクリックします。<br/>
+クリックすると、新規会員登録の画面へ遷移します。<br/>
+ここから順番に、メールアドレスやその他個人情報、SendGridの利用目的等を入力します。</p>
+<p><span style="color: red">利用目的はきちんと入力するようにしてください。<br/>
+矛盾が生じていると後ほど確認が入りますが、その際にきちんと説明できれば問題ありません。</span></p>
+<p><span style="color: red">ライセンス代理購入、譲渡、二次利用はポリシー的にNGなので、　　<br/>
+システム開発案件等でお客様にメール機能として納品する場合は注意。</span></p>
+<p>規約違反例については<a href="https://support.sendgrid.kke.co.jp/hc/ja/articles/205590193">こちら</a>をご参考ください。</p>
+<h3><span id="API">APIキーを発行する</span></h3>
+<p>SendGridのアカウントが発行されたら、kintoneプラグインで使うAPIキーを発行します。</p>
+<p><img class="alignnone size-full wp-image-1181" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-2-300x126.png" alt="" width="1200" height="504" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-2-300x126.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-2-768x322.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-2.png 824w" sizes="(max-width: 1200px) 100vw, 1200px" data-pagespeed-url-hash="3606862091" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>画面左の【Settings】内にある【API keys】をクリックします。<br/>
+そのあと、<img class="alignnone size-full wp-image-1182" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-3.png" alt="" width="149" height="41" data-pagespeed-url-hash="572040565" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/>をクリック！</p>
+<p>すると下記のような画面が出てくるので、 APIの名前と、権限を設定します。</p>
+<p><img class="alignnone size-full wp-image-1183" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-4-300x225.png" alt="" width="600" height="450" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-4-300x225.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-4-768x575.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-4.png 907w" sizes="(max-width: 600px) 100vw, 600px" data-pagespeed-url-hash="4218042997" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>設定が完了すると下記画面が表示され、APIKeyが発行されます。<br/>
+このKeyはこの画面でしか確認できないため、<br/>
+後から必要になる場合は必ずコピーしておきましょう。<br/>
+コピーした後、この画面を閉じることができるようになります。<br/>
+※Keyがわからなくなったら再発行して付け直せばOK</p>
+<p><img class="alignnone size-full wp-image-1184" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-5-300x150.png" alt="" width="600" height="300" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-5-300x150.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-5-768x384.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-5.png 780w" sizes="(max-width: 600px) 100vw, 600px" data-pagespeed-url-hash="572813137" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>これでAPIkeyは発行完了です。</p>
+<h3><span id="i-2">メールテンプレートを作成する</span></h3>
+<p>次に、kintoneと連携して送信するメール本文のテンプレートをSendGrid側で作成します。</p>
+<p>画面左の【Templates】内の【Transactional】⇒【CreateTemplate】をクリック！</p>
+<p>その後、テンプレート名を入力し、右側にある【Actions】タブより【Add Version】を選択します。<br/>
+<img class="alignnone size-full wp-image-1200" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-8.png" alt="" width="210" height="182" data-pagespeed-url-hash="2044540170" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>メールテンプレートを作成できる画面に遷移します。<br/>
+HTMLコーディングをする？それともドラッグ&amp;ドロップで作る？と聞いてくるので、<br/>
+お好きな方を選びます。わたしはドラッグ&amp;ドロップで作る方を選びました。</p>
+<p><img class="alignnone size-medium wp-image-1201" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-9-250x300.png" alt="" width="500" height="600" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-9-250x300.png 250w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-9.png 689w" sizes="(max-width: 500px) 100vw, 500px" data-pagespeed-url-hash="1625470670" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-17-1.png" alt="" width="949" height="686" class="alignnone size-full wp-image-1270" data-pagespeed-url-hash="1775005210" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>SendGridは基本的にはHTMLメールをベースに作成していくようです。。<br/>
+テキストメールを編集したい場合は【PREVIEW】から編集できます。</p>
+<p>kintoneの項目を使用する場合は%〇〇%という形にします。<br/>
+例えば、メールの冒頭の宛先（〇〇会社、△△様 の部分）を<br/>
+kintoneの顧客アプリの保存されているレコードごとに自動入力してくれるので便利です！</p>
+<h3><span id="kintoneSendGrid">kintone×SendGridプラグインを設定する</span></h3>
+<p>テンプレートが出来たら、kintone側の設定に入っていきます。<br/>
+SendGridメール機能を付けたいアプリを選び、プラグインを適応します。</p>
+<p><img class="alignnone size-full wp-image-1203" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-11-300x87.png" alt="" width="900" height="261" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-11-300x87.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-11-768x223.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-11-1024x298.png 1024w" sizes="(max-width: 900px) 100vw, 900px" data-pagespeed-url-hash="2744468563" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p><img class="alignnone size-medium wp-image-1204" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-12-300x110.png" alt="" width="600" height="220" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-12-300x110.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-12-768x281.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-12.png 807w" sizes="(max-width: 600px) 100vw, 600px" data-pagespeed-url-hash="978215299" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>試してみると、kintoneの下記のフィールドは本文に載せることができました。</p>
+<ul>
+<li>文字列1行</li>
+<li>リンク</li>
+<li>数値</li>
+</ul>
+<p>※日付はそのままでは掲載不可能だったので、<br/>
+　DATE_FORMATで文字列1行にしてあげれば解決しそうです。</p>
+<p><img class="alignnone size-full wp-image-1205" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-13-300x54.png" alt="" width="900" height="162" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-13-300x54.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-13-768x139.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-13-1024x185.png 1024w" sizes="(max-width: 900px) 100vw, 900px" data-pagespeed-url-hash="3119540733" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>設定が出来たら、一覧画面にテンプレートが選択できるドロップダウンが表示されます。<br/>
+テンプレートを選択した後に、<br/>
+<img class="alignnone size-full wp-image-1206" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-14.png" alt="" width="43" height="32" data-pagespeed-url-hash="3691962871" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/>を押すと、一覧で絞り込んだ宛先に対してメールが送信されます！</p>
+<p>送信状況は、SendGridダッシュボードのActivityタブから確認できます。<br/>
+送信相手のメールアドレスごとにログが残っており、<br/>
+相手が開封したかどうかの確認までできるので大変便利！！</p>
+<p>kintoneとの相互連携はできません。<br/>
+例えば、送信状況をkintone側に掲載したり、<br/>
+SendGrid側の送信状況にkintoneの顧客名を載せたりなどは<br/>
+標準機能では対応不可能となっています。<br/>
+（カスタマイズしたらできるのかもしれない）</p>
+<h1><span id="i-3">メールワイズ</span></h1>
+<p>メールワイズとは、届いたメールを複数人で共有し、チームのメール業務を一元管理できるツールです。<br/>
+kintoneを開発、提供しているサイボウズ社が提供しているサービスで、<br/>
+kintoneとの連携事例も多くあります。<br/>
+現在導入社数が5000社を突破し、さまざまな業界・職種で導入されているそうです。</p>
+<p>※公式情報から引用<br/>
+<a href="https://mailwise.cybozu.co.jp/">公式ページ</a>をチェック！</p>
+<h2><span id="i-4">料金は？</span></h2>
+<p>クラウドサービスとしては比較的リーズナブルです！<br/>
+1ユーザーあたり月額500円 ×契約ユーザー数(最低契約ユーザー数が２)なので、<br/>
+最小月額1000円からスタート可能です。</p>
+<p>※アカウント共有はポリシー上不可となっているので、<br/>
+利用するユーザー分、アカウントを購入するようにしてください！！</p>
+<h2><span id="kintone">メールワイズとkintoneを連携方法</span></h2>
+<p>メールワイズとkintoneの連携方法を紹介していきます。</p>
+<h3><span id="i-5">まずはメールワイズのお試し申込！</span></h3>
+<p>すでにkintoneを導入していて、メールワイズの試用をしたい！という場合は<br/>
+下記の方法で試用の申し込みが可能です。</p>
+<p>STEP1　　：<a href="https://store.cybozu.com">サイボウズドットコムストア</a>にログインします。</p>
+<p>STEP2　　：ログイン後、契約管理画面にある<img class="alignnone size-full wp-image-1221" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-15.png" alt="" width="108" height="38" data-pagespeed-url-hash="3986462792" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/>　をクリックします。</p>
+<p>STEP3　　：kintoneを導入しているドメインを選択</p>
+<p>STEP4　　：メールワイズにチェックを入れてお試しボタンを押下</p>
+<p>STEP5　　：いつも使っているCybozu.comの環境にメールワイズが追加されます！</p>
+<p><span style="color: red">※会社単位でkintoneを契約しているけど、チームでメールワイズを使ってみたい。。という方は<br/>
+　事前に自社のkintoneの管理者に相談してくださいね。</span></p>
+<h3><span id="i-6">メールサーバの設定</span></h3>
+<p>メールワイズの画面を開くと、初めにメールサーバの設定を行う画面が表示されます。<br/>
+表示の内容に従って、メールワイズに利用するメールサーバの情報を登録してください。</p>
+<p><span style="color: red">※自社で利用可能なサーバを情シス部門の方に確認してください。<br/>
+※Office365対応しているため、弊社の場合だとサーバを立てる必要がなく、<br/>
+　Office365のアカウント作成が必要となりました。</span></p>
+<h3><span id="kintone-2">kintoneにアプリを追加</span></h3>
+<p>kintone側に下記の2つのアプリを作成します。</p>
+<ul>
+<li>メールテンプレートアプリ  </li>
+<li>メールワイズと連携するアプリ（メール送信に使うメールアドレスが入っているアプリ）  </li>
+</ul>
+<p>それぞれのアプリの作成方法を、下記に詳しく記載しています。</p>
+<h4><span id="i-7">メールのテンプレートアプリの作成</span></h4>
+<p>必要なフォーム</p>
+<ul>
+<li>メールテンプレートタイトル（文字列1行）</li>
+<li>メール件名（文字列1行）</li>
+<li>メール本文（文字列複数行）</li>
+</ul>
+<p>アプリが出来たら、メール本文を作成するような形でレコードを登録します。<br/>
+kintoneの値を利用したい、【顧客名】や【担当者】等は&#8221;%%&#8221;を仮値としておいておきます。</p>
+<h4><span id="i-8">メールワイズと連携するアプリの作成</span></h4>
+<p>例えば顧客管理アプリと連携して、メルマガ配信に活用したい<br/>
+サービス管理アプリと連携して、サービスの締結日毎に決まった文面を送信したい</p>
+<p>など、活用用途は様々ですが、<br/>
+とりあえずメールアドレスと顧客名が入っているアプリであれば連携することできます。</p>
+<p>ここではサービス【顧客管理】アプリとします。</p>
+<p>顧客管理アプリの仕組み</p>
+<table>
+<thead>
+<tr>
+<th>フィールド名</th>
+<th>フィールドコード</th>
+<th>フィールドタイプ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会社名</td>
+<td>company</td>
+<td>文字列1行</td>
+</tr>
+<tr>
+<td>担当者氏名</td>
+<td>customer</td>
+<td>文字列1行</td>
+</tr>
+<tr>
+<td>メールアドレス</td>
+<td>mail</td>
+<td>リンク</td>
+</tr>
+<tr>
+<td>利用サービス</td>
+<td>Service</td>
+<td>ラジオボタン</td>
+</tr>
+<tr>
+<td>試用終了日</td>
+<td>EndDate</td>
+<td>日付</td>
+</tr>
+<tr>
+<td>試用終了日（メールワイズに載せる用）</td>
+<td>EndDateSystem</td>
+<td>文字列（自動計算あり）</td>
+</tr>
+<tr>
+<td>　</td>
+<td>スペース</td>
+<td>maillog</td>
+</tr>
+<tr>
+<td>ユーザーID</td>
+<td>UserId</td>
+<td>文字列1行</td>
+</tr>
+</tbody>
+</table>
+<h3><span id="i-9">プラグインを追加し設定する</span></h3>
+<p>kintoneに初期導入されている、メールワイズ連携プラグインを使います。<br/>
+顧客管理アプリにプラグインを適用し、下記のように設定します。</p>
+<p><img class="alignnone size-full wp-image-1222" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-17-284x300.png" alt="" width="852" height="900" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-17-284x300.png 284w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-17-768x812.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-17.png 776w" sizes="(max-width: 852px) 100vw, 852px" data-pagespeed-url-hash="2274053994" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>設定が完了すると、詳細画面に下記のようにテンプレートを選択してメールを作成するボタンが出てきます。</p>
+<p><img class="alignnone size-full wp-image-1225" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-18.png" alt="" width="1014" height="488" data-pagespeed-url-hash="574995259" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>ボタンを押すと、メールワイズの画面にテンプレートとkintoneのレコードが引用されて送信画面が表示されます！</p>
+<p><img class="alignnone size-full wp-image-1224" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-19-300x209.png" alt="" width="900" height="627" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-19-300x209.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-19-768x535.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-19-1024x713.png 1024w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-19.png 1150w" sizes="(max-width: 900px) 100vw, 900px" data-pagespeed-url-hash="1442286681" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>あとは送信ボタンを押すだけ！</p>
+<p>メールワイズには相手が開いたかどうかをキャッチする機能まではありませんが、<br/>
+先ほどの顧客情報アプリに送信メール一覧というかたちで、<br/>
+下記のような履歴を残すことが出来ます！！<br/>
+とっても便利ですね！</p>
+<p><img class="alignnone size-full wp-image-1231" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-20-300x76.png" alt="" width="600" height="152" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-20-300x76.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-20-768x195.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-20.png 905w" sizes="(max-width: 600px) 100vw, 600px" data-pagespeed-url-hash="945761029" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<h1><span id="kMailerNew20181"> kMailer（New!2018年1月）</span></h1>
+<p>kMailerとは、2018年1月からサイボウズスタートアップス社が提供開始した、<br/>
+kintoneとの連携専用のメール送信システムです。</p>
+<p>kintoneで管理している顧客に向けて個別／一斉送信が可能。<br/>
+送信内容には、kintoneからのテキスト引用はもちろん、添付ファイルを含んで送信することも可能。<br/>
+添付ファイルはダウンロードリンク化され、セキュリティのためにパスワードがかかるようになります。<br/>
+誰に、いつ、どんなメールを送信したか、受信者がいつ資料をダウンロードしたかをログとして確認も可能です。</p>
+<p>※<a href="https://km.kintoneapp.com/">公式ページ</a>から引用</p>
+<h2><span id="i-10"> 料金は？</span></h2>
+<p>kMailerの料金パターンは1つだけでした。<br/>
+もしかしたら、今後はプランが増えるのかもしれませんが、<br/>
+2018年1月時点では、15,000円/月額（171,000円/年額）で一律なようです。</p>
+<p>詳しくは<a href="https://km.kintoneapp.com/">公式ページ</a>をチェック！</p>
+<h2><span id="kMailerkintone">kMailerとkintoneの連携方法</span></h2>
+<p>kMailerはkintoneとの連携を専門に作られたシステムなので、<br/>
+連携はとても簡単でした。<br/>
+公式でも紹介されているのですが、ここでも紹介します。</p>
+<h3><span id="kintone-3"> kintoneアプリを作成する。</span></h3>
+<p>kMailerを申し込む前に、kMailerでメールを送信するのに必要なkintoneアプリを作成します。</p>
+<p><a href="https://km.kintoneapp.com/user/">こちら</a>（kMailer公式）に、テンプレートアプリが用意されているので、<br/>
+ダウンロードし、kintoneに読み込みます。</p>
+<p>読み込んだテンプレートからアプリを作成し、<br/>
+それぞれのアプリから、【レコード追加】のAPIキーを発行します。</p>
+<p>テンプレートの読み込み方法は<a href="https://jp.cybozu.help/ja/k/admin/import_template">こちら</a><br/>
+APIキーの発行方法は<a href="https://jp.cybozu.help/ja/k/user/api_token">こちら</a></p>
+<h3><span id="kMailer"> kMailerの無料お試し申込</span></h3>
+<p>公式ページの【無料お試しの申込】より申し込みます。<br/>
+必要事項を入力し、申し込みを行うと後日登録したメールアドレス宛に、<br/>
+お試し環境のログイン情報が送付されてきます。</p>
+<h3><span id="kMailer-2"> kMailerにログインし、初期設定をする</span></h3>
+<p>メールで送られてきた情報でkMailerにログインした後、<br/>
+初期設定を行います。</p>
+<p>STEP1　　：メールサーバの設定を行います。<br/>
+STEP2　　：差出人設定を行います。<br/>
+STEP3　　：送信履歴アプリ、ログアプリの設定を行います。<br/>
+　　　　　　※テンプレートアプリの中に含まれているので、それを指定してください。<br/>
+STEP4　　：添付ファイルのダウンロード回数を指定します。</p>
+<p>※自社で利用可能なサーバを情シス部門の方に確認してください。<br/>
+※Office365対応しているため、弊社の場合だとサーバを立てる必要がなく、<br/>
+　Office365のアカウント作成が必要となりました。</p>
+<h3><span id="kMailer-3"> kMailerでメールセットを作成する</span></h3>
+<p>メールセットとは、kMailerでkintone上のテンプレートアプリと、<br/>
+メール送信に使うアプリの紐づけを行う作業です。<br/>
+複数アプリにメール送信の機能を設置したい場合は、その分セットを作成します。</p>
+<p>STEP1　　：メールテンプレートアプリ(テンプレートからアプリ化したもの)の、<br/>
+　　　　　　URLとAPIトークンを指定します。</p>
+<p>STEP2　　：宛先管理アプリ(送信先メールアドレスの情報が含まれる任意のアプリ)の、<br/>
+　　　　　　URLとAPIトークンを指定します。</p>
+<p>STEP3　　：メールセットの名称を登録します。</p>
+<p>STEP4　　：【このテンプレートのJavaScriptをダウンロードする】から、<br/>
+　　　　　　JavaScriptをダウンロードし、<br/>
+　　　　　　宛先管理に指定したアプリにJavaScriptをアップロードします。</p>
+<h3><span id="kMailer-4"> kMailerでメールのテンプレートを作成する</span></h3>
+<p>作成したメールセットの中にある、<br/>
+<img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-23.png" alt="" width="239" height="48" class="alignnone size-full wp-image-1265" data-pagespeed-url-hash="3322246937" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/><br/>
+↓<br/>
+<img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-21.png" alt="" width="987" height="226" class="alignnone size-full wp-image-1267" data-pagespeed-url-hash="2733247095" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/><br/>
+の順にクリックすると、<br/>
+メールのテンプレートを作成する画面に遷移します。</p>
+<p>すると、下記のような画面が表示され、<br/>
+宛先管理アプリとして登録したアプリに設置されているフィールドが選択でき、<br/>
+メールのテンプレート内にフィールドを入れ込むことで、<br/>
+kintone上のデータをメールに掲載することが出来ます！</p>
+<p><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-22.png" alt="" width="1141" height="919" class="alignnone size-full wp-image-1264" data-pagespeed-url-hash="3027747016" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>さらに、選択できるフィールドタイプが、メールワイズやSendGridに比べて、<br/>
+非常に多いのが特徴です！</p>
+<p>選択できるフィールドタイプは<a href="https://km.kintoneapp.com/user/specification.html">こちら</a></p>
+<h3><span id="i-11"> 宛先管理アプリからメールを送信する。</span></h3>
+<p>すべての設定を終えて、宛先管理として設定したアプリの一覧画面を開くと、<br/>
+下記のように【メールを作成する】ボタンが表示されています。</p>
+<p><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/Image-24.png" alt="" width="653" height="85" class="alignnone size-full wp-image-1266" data-pagespeed-url-hash="3616746858" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></p>
+<p>これをクリックすると、先ほどKMailerで作成したメールテンプレートを選択できるようになっており、<br/>
+テンプレートを選択して、内容を確認した後にメールを送信することが出来ます。<br/>
+※送信ミスも防げそうですね。</p>
+<h1><span id="i-12">色んな切り口からの比較表</span></h1>
+<p>長々と書きましたが、それぞれの特徴を様々な切り口から比較してみました。</p>
+<table>
+<tbody>
+<tr>
+<td></td>
+<td><b>メールワイズ</b></td>
+<td><b>SendGrid</b></td>
+<td><b>kMailer</b></td>
+</tr>
+<tr>
+<td>言語</td>
+<td>日本語対応</td>
+<td>英語のみ。<br/>
+日本語ドキュメントはあり<br/>
+ブラウザの翻訳に注意！</td>
+<td>日本語対応</td>
+</tr>
+<tr>
+<td>環境</td>
+<td>同じサブドメインの<br/>cybozu.comの上に<br/>
+kintoneとメールワイズが<br/>存在すること</td>
+<td>ブラウザがあればOK</td>
+<td>ブラウザがあればOK</td>
+</tr>
+<tr>
+<td>メールサーバ</td>
+<td>必要</td>
+<td>不要</td>
+<td>必要</td>
+</tr>
+<tr>
+<td>料金</td>
+<td>月1,000円～<br/>+<br/>サーバ運用コスト</td>
+<td>12000通/月まで無料</td>
+<td>月15,000円<br/>+<br/>サーバ運用コスト</td>
+</tr>
+<tr>
+<td>kintoneとの<br/>
+連携</td>
+<td colspan="3">メールアドレス、顧客名が掲載されているアプリを作成し、<br/>
+レコードを利用してメールを送信する。</td>
+</tr>
+<tr>
+<td>使用する<br/>
+プラグイン</td>
+<td>kintone側に標準搭載されている<br/>
+プラグイン</td>
+<td>SendGridが<br/>提供している<br/>
+プラグイン</td>
+<td>なし。<br/>※kMailerで設定後生成したJavaScriptを<br/>kintoneアプリに適用する</td>
+</tr>
+<tr>
+<td>テンプレート</td>
+<td>kintone側に<br/>
+テンプレートアプリを作成する<br/>
+※メールワイズ側で作った<br/>
+テンプレートは使えない</td>
+<td>SendGridで作った<br/>テンプレートを使用</td>
+<td>kintone側に<br/>テンプレートアプリを作成する<br/>テンプレート自体の編集は<br/>kMailerからも<br/>kintoneからも可能</td>
+</tr>
+<tr>
+<td>画面の<br/>
+わかりやすさ</td>
+<td>わかりやすい</td>
+<td>少し難しい</td>
+<td>わかりやすい</td>
+</tr>
+<tr>
+<td>CC,BCC</td>
+<td>レコードごとに設定可能</td>
+<td>設定不可</td>
+<td>設定可！！<br/>※アップデートされました</td>
+</tr>
+<tr>
+<td>一斉送信</td>
+<td>可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>個別送信</td>
+<td>可能</td>
+<td>不可</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>誤送信の<br/>
+可能性</td>
+<td>低<br/>
+※確認フロー設定可能</td>
+<td>高<br/>
+※ボタン押下後即送信</td>
+<td>低<br/>
+※送信前に<br/>テンプレートと宛先を確認可能</td>
+</tr>
+<tr>
+<td>利点</td>
+<td>IT初心者に優しい<br/>
+メール送信前に<br/>文面と宛先を確認できる<br/>
+<br/>一括送信、一通送信か選択可能</td>
+<td>安くて多機能の上、<br/>サーバ運用の事は考えなくていい</td>
+<td>kintoneに特化しており、<br/>サポートが充実</p>
+<p>テンプレートに挿入できる<br/>フィールドタイプの豊富さ</p>
+<p>今後のアップデートにより、<br/>さらに便利になる可能性あり</td>
+</tr>
+<tr>
+<td>向いている業務</td>
+<td>同じ内容のメールを<br/>同時に複数名に送信する場合<br/>(メルマガ送信など)<br/>
+同じメールを<br/>違うタイミングで<br/>複数名に送信する場合</td>
+<td>同じメールを<br/>同時に一斉送信する場合</p>
+<p>ただしプランによっては<br/>1か月に送信できる上限はあり</td>
+<td>送付するメールの内容が<br/>顧客ごとに違う情報を<br/>たくさん掲載する場合</p>
+<p>例えば、請求書の発行や<br/>試用期間のお知らせなど、<br/>顧客ごとに入る数値が違うような<br/>メールを送付する際に特化</td>
+</tr>
+</tbody>
+</table>
+<h1><span id="i-13">まとめ</span></h1>
+<p>SendGrid　と　メールワイズ　と　kMailerは機能としては似ていた！<br/>
+ただ、SendGridはどちらかといえば個人用として特化していて、<br/>
+メールワイズはチームで使うように特化していた気がします。<br/>
+間を取っているのがkMailer。</p>
+<p>メールワイズはメールの受信もできるので、<br/>
+kintoneとの連携だけでなくチーム間でのメール作業の属人化解消にとても役立つと思います。<br/>
+kMailerは、まだ提供開始されたばかりでこのクオリティ！なので、<br/>
+今後のアップデートにより、ますます使いやすいサービスとなるんじゃないかと思います。<br/>
+SendGridはメールサーバを用意しなくてもいいという点で導入しやすさが圧倒的です。</p>
+<p>初期導入コストをある程度かけてチームで使うのであればメールワイズ、<br/>
+初期導入コストをかけ、kintoneと連携させるのに特化した使い方をするのであればkMailer<br/>
+スモールスタートで始める(もしくは個人事業主の方)であればSendGrid</p>
+<p>かなと個人的には思いました！！</p>
+<p>今後、この記事はどんどんブラッシュアップしていこうと思います！</p>
+<p>本記事に関して、～はちがうよ！！というところがあれば、<br/>
+教えてもらえるとたすかりますm(__)m</p>
+<div class='wp_social_bookmarking_light'>
+            <div class="wsbl_facebook_like"><div id="fb-root"></div><fb:like href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" layout="button_count" action="like" width="100" share="true" show_faces="false"></fb:like></div>
+            <div class="wsbl_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-url="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" data-text="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" data-lang="ja">Tweet</a></div>
+            <div class="wsbl_hatena_button"><a href="//b.hatena.ne.jp/entry/https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" class="hatena-bookmark-button" data-hatena-bookmark-title="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"> <img src="//b.hatena.ne.jp/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" data-pagespeed-url-hash="2725910809" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a><script type="text/javascript" src="//b.hatena.ne.jp/js/bookmark_button.js" charset="utf-8" async="async"></script></div>
+            <div class="wsbl_google_plus_one"><g:plusone size="medium" annotation="bubble" href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise"></g:plusone></div>
+            <div class="wsbl_pocket"><a href="https://getpocket.com/save" class="pocket-btn" data-lang="en" data-save-url="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" data-pocket-count="horizontal" data-pocket-align="left">Pocket</a><script type="text/javascript">!function(d,i){if(!d.getElementById(i)){var j=d.createElement("script");j.id=i;j.src="https://widgets.getpocket.com/v1/j/btn.js?v=1";var w=d.getElementById(i);d.body.appendChild(j);}}(document,"pocket-btn-js");</script></div>
+    </div>
+<br class='wp_social_bookmarking_light_clear'/>
+<div id="ts-fab-below" class="ts-fab-wrapper"><span class="screen-reader-text">The following two tabs change content below.</span><ul class="ts-fab-list"><li class="ts-fab-bio-link"><a href="#ts-fab-bio-below">この記事を書いた人</a></li><li class="ts-fab-latest-posts-link"><a href="#ts-fab-latest-posts-below">最新の記事</a></li></ul><div class="ts-fab-tabs">
+	<div class="ts-fab-tab" id="ts-fab-bio-below">
+		<div class="ts-fab-avatar"><img alt='' src='https://secure.gravatar.com/avatar/e6195fbb1d3ef41bb4f8de9de355589b?s=80&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/e6195fbb1d3ef41bb4f8de9de355589b?s=160&#038;d=mm&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' data-pagespeed-url-hash="2672922070" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/><div class="ts-fab-social-links"></div>
+		</div>
+		
+		<div class="ts-fab-text">
+			<div class="ts-fab-header"><span>武富佳菜</span></div><!-- /.ts-fab-header -->
+			<div class="ts-fab-content">2014年に神戸デジタル・ラボに入社した若手メンバー。ニックネーム：かなへい。文系出身。社内1番のkintoneマスター！kintoneのイベントにちょこちょこ出没する、肉食系女子。非エンジニアで売り出し中の中まさかのkintoneを持ったまま情シスへ移動。kintoneの推進を社内・外問わず担当中。好きな食べ物、オムライスとマカロンとチョコレート。趣味はハムスターの動画収集。</div>
+		</div>
+	</div>
+	<div class="ts-fab-tab" id="ts-fab-latest-posts-below">
+		<div class="ts-fab-avatar"><img alt='' src='https://secure.gravatar.com/avatar/e6195fbb1d3ef41bb4f8de9de355589b?s=80&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/e6195fbb1d3ef41bb4f8de9de355589b?s=160&#038;d=mm&#038;r=g 2x' class='avatar avatar-80 photo' height='80' width='80' data-pagespeed-url-hash="2672922070" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/><div class="ts-fab-social-links"></div>
+		</div>
+		<div class="ts-fab-text">
+			<div class="ts-fab-header">
+				<span>最新記事 by 武富佳菜 <span class="latest-see-all">(<a href="https://blog.ismg.kdl.co.jp/author/taketomi" rel="nofollow">全て見る</a>)</span></span>
+			</div>
+			<ul class="ts-fab-latest">
+				<li>
+					<a href="https://blog.ismg.kdl.co.jp/kintone/kintoneisnotsuitable">kintone化するのに向いていないことPart1</a><span> - 2018-05-07</span> 
+				</li>
+				<li>
+					<a href="https://blog.ismg.kdl.co.jp/kintone/kintone_searchplugin">kintoneの検索を便利にする！情報検索プラグイン★</a><span> - 2018-04-17</span> 
+				</li>
+				<li>
+					<a href="https://blog.ismg.kdl.co.jp/kintone/kintoneplaceholderplugin">kintoneでプレースホルダを設定できるプラグイン♪</a><span> - 2018-04-13</span> 
+				</li>
+				<li>
+					<a href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise">SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？</a><span> - 2017-12-22</span> 
+				</li>
+				<li>
+					<a href="https://blog.ismg.kdl.co.jp/kintone/kintone-radiobutton">kintoneアプリにラジオボタンを追加するときの注意点！</a><span> - 2017-10-23</span> 
+				</li>
+		</ul></div>
+	</div>
+		</div>
+	</div></div>
+                                
+                
+                <!-- author -->
+                                                
+                <!-- tags -->
+                <ul class="list-inline tag"><li><a href="https://blog.ismg.kdl.co.jp/tag/kintone" rel="tag">kintone</a></li></ul>                                
+                                
+                <!-- form -->
+                                  
+            </div>
+                      <div class="detail_comments">
+               
+<div id="disqus_thread"></div>
+           </div>
+                    
+           
+           
+            <nav>
+              <ul class="pager">
+                <li class="pager-prev"><a href="https://blog.ismg.kdl.co.jp/kintone/kintone-radiobutton" title="kintoneアプリにラジオボタンを追加するときの注意点！">&laquo; Prev</a></li><li class="pager-next"><a href="https://blog.ismg.kdl.co.jp/community/jyosys-cafe/jyosys-cafe-in-kobe-3" title="情シス Café in Kobe #3 開催レポート">Next &raquo;</a></li>                </ul>
+            </nav>
+            
+           
+           <div class="recommend">
+           <div class="ttl">Recommend</div>
+              <div class="row" id="main">
+               
+               <article class="list col-md-4 list_big post-1361 post type-post status-publish format-standard hentry category-kintone tag-kintone tag-x-point">
+                 <a href="https://blog.ismg.kdl.co.jp/kintone/kintoneisnotsuitable" title="kintone化するのに向いていないことPart1" class="post_links">
+                  <div class="list-block">
+                   <div class="post_thumb"><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/05/Image-4.png" alt="kintone化するのに向いていないことPart1" data-pagespeed-url-hash="954409265" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"></div>
+                   <div class="list-text">
+                       <span class="post_time">2018-05-07</span>
+                       <h3 class="list-title post_ttl">kintone化するのに向いていないことPart1</h3>
+                       <div class="post_ex"><b>67</b> Views</div>
+                   </div>
+                  </div>
+                 </a>
+               </article>
+                
+               <article class="list col-md-4 list_big post-1340 post type-post status-publish format-standard has-post-thumbnail hentry category-kintone tag-kintone">
+                 <a href="https://blog.ismg.kdl.co.jp/kintone/kintone_searchplugin" title="kintoneの検索を便利にする！情報検索プラグイン★" class="post_links">
+                  <div class="list-block">
+                   <div class="post_thumb"><img width="1024" height="412" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/Image-1-1-1024x412.png" class="attachment-large size-large wp-post-image" alt="" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/Image-1-1-1024x412.png 1024w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/Image-1-1-300x121.png 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/Image-1-1-768x309.png 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/Image-1-1-e1523933801961.png 600w" sizes="(max-width: 1024px) 100vw, 1024px" data-pagespeed-url-hash="2423407420" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></div>
+                   <div class="list-text">
+                       <span class="post_time">2018-04-17</span>
+                       <h3 class="list-title post_ttl">kintoneの検索を便利にする！情報検索プラグイン★</h3>
+                       <div class="post_ex"><b>61</b> Views</div>
+                   </div>
+                  </div>
+                 </a>
+               </article>
+                
+               <article class="list col-md-4 list_big post-1284 post type-post status-publish format-standard has-post-thumbnail hentry category-kintone tag-kintone">
+                 <a href="https://blog.ismg.kdl.co.jp/kintone/kintoneplaceholderplugin" title="kintoneでプレースホルダを設定できるプラグイン♪" class="post_links">
+                  <div class="list-block">
+                   <div class="post_thumb"><img width="1024" height="768" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/972770-1024x768.jpg" class="attachment-large size-large wp-post-image" alt="" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/972770-1024x768.jpg 1024w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/972770-300x225.jpg 300w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/972770-768x576.jpg 768w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/972770-e1523594517227.jpg 400w" sizes="(max-width: 1024px) 100vw, 1024px" data-pagespeed-url-hash="4240558377" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></div>
+                   <div class="list-text">
+                       <span class="post_time">2018-04-13</span>
+                       <h3 class="list-title post_ttl">kintoneでプレースホルダを設定できるプラグイン♪</h3>
+                       <div class="post_ex"><b>105</b> Views</div>
+                   </div>
+                  </div>
+                 </a>
+               </article>
+                
+               <article class="list col-md-4 list_big post-1125 post type-post status-publish format-standard has-post-thumbnail hentry category-kintone tag-kintone tag-tips">
+                 <a href="https://blog.ismg.kdl.co.jp/kintone/kintone-radiobutton" title="kintoneアプリにラジオボタンを追加するときの注意点！" class="post_links">
+                  <div class="list-block">
+                   <div class="post_thumb"><img width="244" height="208" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/10/Image-20-e1508234361114.png" class="attachment-large size-large wp-post-image" alt="" data-pagespeed-url-hash="1686379511" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></div>
+                   <div class="list-text">
+                       <span class="post_time">2017-10-23</span>
+                       <h3 class="list-title post_ttl">kintoneアプリにラジオボタンを追加するときの注意点！</h3>
+                       <div class="post_ex"><b>207</b> Views</div>
+                   </div>
+                  </div>
+                 </a>
+               </article>
+                                              </div>
+            </div>
+            
+            
+            
+           </div><!-- /col -->
+                      <div class="col-lg-3 sidebar">
+             <div class="row widgets">
+                <div id="search-2" class="col-xs-12"><div class="widget widget_search"><div class="searchform">  
+    <form action="https://blog.ismg.kdl.co.jp/" method="get" class="search-form">
+        <fieldset class="form-group">
+            <label class="screen-reader-text">Search</label>
+            <input type="text" name="s" value="" placeholder="Search" class="form-control search-text">
+            <button type="submit" value="Search" class="btn btn-primary"><i class="icon icon-search"></i></button>
+        </fieldset>
+    </form>
+</div></div></div><div id="nav_menu-10" class="col-xs-12"><div class="widget widget_nav_menu"><div class="menu-menu-container"><ul id="menu-menu-1" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1283 nav-item hidden-sm-down"><a href="https://blog.ismg.kdl.co.jp/about">ABOUT</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32 nav-item hidden-sm-down"><a href="https://blog.ismg.kdl.co.jp/community">COMMUNITY</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-27 nav-item hidden-sm-down"><a href="https://ismg-cafe-kobe.doorkeeper.jp">情シス Café in Kobe</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-28 nav-item hidden-sm-down"><a href="https://kdl-infra.doorkeeper.jp">神戸デジタル・ラボ_インフラ勉強会</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-29 nav-item hidden-sm-down"><a href="https://kdlkintone.doorkeeper.jp">神戸デジタル・ラボ_kintone勉強会</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-1037 nav-item hidden-sm-down"><a href="https://blog.ismg.kdl.co.jp/service">SERVICE</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1039 nav-item hidden-sm-down"><a href="http://www.kdl.co.jp/service/cloudcollection/aws/">クラウドコレクション for Amazon Web Services</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1038 nav-item hidden-sm-down"><a href="http://www.kdl.co.jp/service/cloudcollection/kintone/">クラウドコレクション for kintone</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1040 nav-item hidden-sm-down"><a href="http://kintone.cloudcollection.jp/">クラウドコレクション for kintone 専用サイト</a></li>
+</ul>
+</li>
+</ul></div></div></div>            <div id="liquid_newpost-2" class="col-xs-12"><div class="widget widget_liquid_newpost">
+            <div class="ttl">最近の投稿</div>            <ul class="newpost">
+                            <li>
+                    <a href="https://blog.ismg.kdl.co.jp/kintone/kintoneisnotsuitable" title="kintone化するのに向いていないことPart1">
+                    <span class="post_thumb"><span></span></span>
+                    <span class="post_ttl">kintone化するのに向いていないことPart1</span></a>
+                </li>
+                            <li>
+                    <a href="https://blog.ismg.kdl.co.jp/kintone/kintone_searchplugin" title="kintoneの検索を便利にする！情報検索プラグイン★">
+                    <span class="post_thumb"><span><img width="150" height="150" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/Image-1-1-150x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" data-pagespeed-url-hash="2424384300" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></span></span>
+                    <span class="post_ttl">kintoneの検索を便利にする！情報検索プラグイン★</span></a>
+                </li>
+                            <li>
+                    <a href="https://blog.ismg.kdl.co.jp/kintone/kintoneplaceholderplugin" title="kintoneでプレースホルダを設定できるプラグイン♪">
+                    <span class="post_thumb"><span><img width="150" height="150" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2018/04/972770-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" data-pagespeed-url-hash="1899105867" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></span></span>
+                    <span class="post_ttl">kintoneでプレースホルダを設定できるプラグイン♪</span></a>
+                </li>
+                            <li>
+                    <a href="https://blog.ismg.kdl.co.jp/community/jyosys-cafe/jyosys-cafe-in-kobe-3" title="情シス Café in Kobe #3 開催レポート">
+                    <span class="post_thumb"><span><img width="150" height="150" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2016/09/ScreenHunter_1012-Aug.-09-15.23-150x150.jpg" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" data-pagespeed-url-hash="2455626739" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></span></span>
+                    <span class="post_ttl">情シス Café in Kobe #3 開催レポート</span></a>
+                </li>
+                            <li>
+                    <a href="https://blog.ismg.kdl.co.jp/kintone/sendgridormailwise" title="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？">
+                    <span class="post_thumb"><span><img width="150" height="150" src="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256-150x150.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" srcset="https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256-150x150.png 150w, https://blog.ismg.kdl.co.jp/wp-content/uploads/2017/12/icon_125330_256.png 256w" sizes="(max-width: 150px) 100vw, 150px" data-pagespeed-url-hash="578727509" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></span></span>
+                    <span class="post_ttl">SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？</span></a>
+                </li>
+                        </ul>
+            </div></div>            
+<!-- WordPress Popular Posts Plugin [W] [monthly] [views] [regular] -->
+
+<div id="wpp-3" class="col-xs-12"><div class="widget popular-posts">
+<div class="ttl">人気記事</div>
+<ul class="wpp-list wpp-list-with-thumbnails">
+<li>
+<a href="https://blog.ismg.kdl.co.jp/project-management/redmine-migration" title="Redmine から Backlog へ移行する際にやったこと、注意点と仕様の違いについて" target="_self"><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/wordpress-popular-posts/120-featured-90x60.png" width="90" height="60" alt="Redmine から Backlog へ移行する際にやったこと、注意点と仕様の違いについて" class="wpp-thumbnail wpp_cached_thumb wpp_featured" data-pagespeed-url-hash="4172008437" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a href="https://blog.ismg.kdl.co.jp/project-management/redmine-migration" title="Redmine から Backlog へ移行する際にやったこと、注意点と仕様の違いについて" class="wpp-post-title" target="_self">Redmine から Backlog へ移行する際にやったこと、注意点と仕様の違いについて</a>
+ <span class="wpp-meta post-stats"><span class="wpp-views">786ビュー</span></span>
+</li>
+<li>
+<a href="https://blog.ismg.kdl.co.jp/operation-control/redmine-operation" title="情シスへの申請・問い合わせ管理を Redmine で効率化する" target="_self"><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/wordpress-popular-posts/884-featured-90x60.png" width="90" height="60" alt="情シスへの申請・問い合わせ管理を Redmine で効率化する" class="wpp-thumbnail wpp_cached_thumb wpp_featured" data-pagespeed-url-hash="1282428716" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a href="https://blog.ismg.kdl.co.jp/operation-control/redmine-operation" title="情シスへの申請・問い合わせ管理を Redmine で効率化する" class="wpp-post-title" target="_self">情シスへの申請・問い合わせ管理を Redmine で効率化する</a>
+ <span class="wpp-meta post-stats"><span class="wpp-views">597ビュー</span></span>
+</li>
+<li class="current">
+<a title="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" target="_self"><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/wordpress-popular-posts/1176-featured-90x60.png" width="90" height="60" alt="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" class="wpp-thumbnail wpp_cached_thumb wpp_featured" data-pagespeed-url-hash="1381492157" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a title="SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？" class="wpp-post-title" target="_self">SendGrid、メールワイズ、kMailer  kintoneと連携するならどれがおすすめ！？</a>
+ <span class="wpp-meta post-stats"><span class="wpp-views">253ビュー</span></span>
+</li>
+<li>
+<a href="https://blog.ismg.kdl.co.jp/tools/zsh-prezto" title="﻿zsh + Preztoを導入してみた" target="_self"><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/wordpress-popular-posts/489-featured-90x60.png" width="90" height="60" alt="﻿zsh + Preztoを導入してみた" class="wpp-thumbnail wpp_cached_thumb wpp_featured" data-pagespeed-url-hash="643500327" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a href="https://blog.ismg.kdl.co.jp/tools/zsh-prezto" title="﻿zsh + Preztoを導入してみた" class="wpp-post-title" target="_self">﻿zsh + Preztoを導入してみた</a>
+ <span class="wpp-meta post-stats"><span class="wpp-views">226ビュー</span></span>
+</li>
+<li>
+<a href="https://blog.ismg.kdl.co.jp/aws/cloudformation_createinstance" title="AWS CloudFormationを使ってEC2インスタンスを作成する" target="_self"><img src="https://blog.ismg.kdl.co.jp/wp-content/uploads/wordpress-popular-posts/738-featured-90x60.png" width="90" height="60" alt="AWS CloudFormationを使ってEC2インスタンスを作成する" class="wpp-thumbnail wpp_cached_thumb wpp_featured" data-pagespeed-url-hash="4036419472" onload="pagespeed.CriticalImages.checkImageForCriticality(this);"/></a>
+<a href="https://blog.ismg.kdl.co.jp/aws/cloudformation_createinstance" title="AWS CloudFormationを使ってEC2インスタンスを作成する" class="wpp-post-title" target="_self">AWS CloudFormationを使ってEC2インスタンスを作成する</a>
+ <span class="wpp-meta post-stats"><span class="wpp-views">174ビュー</span></span>
+</li>
+</ul>
+
+</div></div>
+<div id="categories-2" class="col-xs-12"><div class="widget widget_categories"><div class="ttl">カテゴリー</div>		<ul>
+	<li class="cat-item cat-item-38"><a href="https://blog.ismg.kdl.co.jp/category/aws">AWS</a> (7)
+</li>
+	<li class="cat-item cat-item-18"><a href="https://blog.ismg.kdl.co.jp/category/idaas">IDaaS</a> (1)
+<ul class='children'>
+	<li class="cat-item cat-item-19"><a href="https://blog.ismg.kdl.co.jp/category/idaas/onelogin">OneLogin</a> (1)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-33"><a href="https://blog.ismg.kdl.co.jp/category/kintone">kintone</a> (15)
+</li>
+	<li class="cat-item cat-item-4"><a href="https://blog.ismg.kdl.co.jp/category/community">コミュニティ</a> (9)
+<ul class='children'>
+	<li class="cat-item cat-item-15"><a href="https://blog.ismg.kdl.co.jp/category/community/kintone-cafe">kintone Café</a> (2)
+</li>
+	<li class="cat-item cat-item-5"><a href="https://blog.ismg.kdl.co.jp/category/community/infra-study">インフラ勉強会</a> (2)
+</li>
+	<li class="cat-item cat-item-2"><a href="https://blog.ismg.kdl.co.jp/category/community/jyosys-cafe">情シス Café</a> (2)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-36"><a href="https://blog.ismg.kdl.co.jp/category/security">セキュリティ</a> (1)
+<ul class='children'>
+	<li class="cat-item cat-item-37"><a href="https://blog.ismg.kdl.co.jp/category/security/hardening">Hardening</a> (1)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-39"><a href="https://blog.ismg.kdl.co.jp/category/tools">ツール</a> (1)
+</li>
+	<li class="cat-item cat-item-9"><a href="https://blog.ismg.kdl.co.jp/category/document">ドキュメント管理</a> (1)
+</li>
+	<li class="cat-item cat-item-12"><a href="https://blog.ismg.kdl.co.jp/category/project-management">プロジェクト管理</a> (1)
+</li>
+	<li class="cat-item cat-item-28"><a href="https://blog.ismg.kdl.co.jp/category/virtualization">仮想化</a> (2)
+<ul class='children'>
+	<li class="cat-item cat-item-29"><a href="https://blog.ismg.kdl.co.jp/category/virtualization/docker">Docker</a> (2)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-47"><a href="https://blog.ismg.kdl.co.jp/category/operation-control">運用管理</a> (1)
+</li>
+		</ul>
+</div></div><div id="archives-2" class="col-xs-12"><div class="widget widget_archive"><div class="ttl">アーカイブ</div>		<ul>
+			<li><a href='https://blog.ismg.kdl.co.jp/2018/05'>2018年5月</a>&nbsp;(1)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2018/04'>2018年4月</a>&nbsp;(2)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2018/03'>2018年3月</a>&nbsp;(1)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/12'>2017年12月</a>&nbsp;(1)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/10'>2017年10月</a>&nbsp;(1)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/08'>2017年8月</a>&nbsp;(1)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/07'>2017年7月</a>&nbsp;(2)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/06'>2017年6月</a>&nbsp;(6)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/05'>2017年5月</a>&nbsp;(8)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2017/02'>2017年2月</a>&nbsp;(2)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2016/12'>2016年12月</a>&nbsp;(1)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2016/11'>2016年11月</a>&nbsp;(3)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2016/10'>2016年10月</a>&nbsp;(2)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2016/09'>2016年9月</a>&nbsp;(4)</li>
+	<li><a href='https://blog.ismg.kdl.co.jp/2016/07'>2016年7月</a>&nbsp;(1)</li>
+		</ul>
+		</div></div><div id="tag_cloud-3" class="col-xs-12"><div class="widget widget_tag_cloud"><div class="ttl">タグ</div><div class="tagcloud"><a href="https://blog.ismg.kdl.co.jp/tag/aws" class="tag-cloud-link tag-link-7 tag-link-position-1" style="font-size: 18.791666666667pt;" aria-label="AWS (10個の項目)">AWS</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/backlog" class="tag-cloud-link tag-link-11 tag-link-position-2" style="font-size: 8pt;" aria-label="Backlog (1個の項目)">Backlog</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/cloudformation" class="tag-cloud-link tag-link-45 tag-link-position-3" style="font-size: 8pt;" aria-label="CloudFormation (1個の項目)">CloudFormation</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/docker" class="tag-cloud-link tag-link-27 tag-link-position-4" style="font-size: 10.625pt;" aria-label="Docker (2個の項目)">Docker</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/docker-for-windows" class="tag-cloud-link tag-link-30 tag-link-position-5" style="font-size: 10.625pt;" aria-label="Docker for Windows (2個の項目)">Docker for Windows</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/esa" class="tag-cloud-link tag-link-8 tag-link-position-6" style="font-size: 8pt;" aria-label="esa.io (1個の項目)">esa.io</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/gusuku" class="tag-cloud-link tag-link-42 tag-link-position-7" style="font-size: 8pt;" aria-label="gusuku (1個の項目)">gusuku</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/hardening" class="tag-cloud-link tag-link-35 tag-link-position-8" style="font-size: 8pt;" aria-label="Hardening (1個の項目)">Hardening</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone" class="tag-cloud-link tag-link-14 tag-link-position-9" style="font-size: 22pt;" aria-label="kintone (17個の項目)">kintone</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintonehive" class="tag-cloud-link tag-link-43 tag-link-position-10" style="font-size: 10.625pt;" aria-label="kintonehive (2個の項目)">kintonehive</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone%e3%81%ab%e5%90%91%e3%81%84%e3%81%a6%e3%81%84%e3%81%aa%e3%81%84" class="tag-cloud-link tag-link-55 tag-link-position-11" style="font-size: 8pt;" aria-label="kintoneに向いていない (1個の項目)">kintoneに向いていない</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone%e3%83%97%e3%83%a9%e3%82%b0%e3%82%a4%e3%83%b3" class="tag-cloud-link tag-link-52 tag-link-position-12" style="font-size: 10.625pt;" aria-label="kintoneプラグイン (2個の項目)">kintoneプラグイン</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone%e3%83%9e%e3%82%b9%e3%82%bf%e3%83%bc" class="tag-cloud-link tag-link-58 tag-link-position-13" style="font-size: 8pt;" aria-label="kintoneマスター (1個の項目)">kintoneマスター</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone%e4%b8%8d%e5%90%91%e3%81%8d" class="tag-cloud-link tag-link-57 tag-link-position-14" style="font-size: 8pt;" aria-label="kintone不向き (1個の項目)">kintone不向き</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone%e6%a4%9c%e7%b4%a2" class="tag-cloud-link tag-link-53 tag-link-position-15" style="font-size: 8pt;" aria-label="kintone検索 (1個の項目)">kintone検索</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/kintone%e6%a4%9c%e7%b4%a2%e3%83%97%e3%83%a9%e3%82%b0%e3%82%a4%e3%83%b3" class="tag-cloud-link tag-link-54 tag-link-position-16" style="font-size: 8pt;" aria-label="kintone検索プラグイン (1個の項目)">kintone検索プラグイン</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/lightsail" class="tag-cloud-link tag-link-44 tag-link-position-17" style="font-size: 8pt;" aria-label="Lightsail (1個の項目)">Lightsail</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/onelogin" class="tag-cloud-link tag-link-17 tag-link-position-18" style="font-size: 8pt;" aria-label="OneLogin (1個の項目)">OneLogin</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/organizations" class="tag-cloud-link tag-link-50 tag-link-position-19" style="font-size: 8pt;" aria-label="Organizations (1個の項目)">Organizations</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/redmine" class="tag-cloud-link tag-link-13 tag-link-position-20" style="font-size: 12.375pt;" aria-label="Redmine (3個の項目)">Redmine</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/sansan" class="tag-cloud-link tag-link-46 tag-link-position-21" style="font-size: 10.625pt;" aria-label="Sansan (2個の項目)">Sansan</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/sansanurl" class="tag-cloud-link tag-link-51 tag-link-position-22" style="font-size: 8pt;" aria-label="SansanURL (1個の項目)">SansanURL</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/tips" class="tag-cloud-link tag-link-20 tag-link-position-23" style="font-size: 12.375pt;" aria-label="Tips (3個の項目)">Tips</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/x-point" class="tag-cloud-link tag-link-56 tag-link-position-24" style="font-size: 8pt;" aria-label="X-point (1個の項目)">X-point</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/zsh" class="tag-cloud-link tag-link-40 tag-link-position-25" style="font-size: 8pt;" aria-label="zsh (1個の項目)">zsh</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/%e3%82%bb%e3%82%ad%e3%83%a5%e3%83%aa%e3%83%86%e3%82%a3" class="tag-cloud-link tag-link-34 tag-link-position-26" style="font-size: 8pt;" aria-label="セキュリティ (1個の項目)">セキュリティ</a>
+<a href="https://blog.ismg.kdl.co.jp/tag/%e3%83%84%e3%83%bc%e3%83%ab" class="tag-cloud-link tag-link-41 tag-link-position-27" style="font-size: 8pt;" aria-label="ツール (1個の項目)">ツール</a></div>
+</div></div>        <div id="liquid_sns-2" class="col-xs-12"><div class="widget widget_liquid_sns">                  <div class="sns_clone"></div>
+        </div></div>                <div id="liquid_fb-3" class="col-xs-12"><div class="widget widget_liquid_fb">                <div class="fb-page" data-href="https://www.facebook.com/kobedigitallabo/" data-width="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/facebook"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div></div>
+        </div></div>                     </div>
+           </div>           
+         </div>
+        </div>
+    </div>
+
+
+<div class="pagetop">
+    <a href="#top"><i class="icon icon-arrow-up2"></i></a>
+</div>
+
+
+<footer>
+        <div class="container">
+                  </div>
+        
+        <div class="foot">
+          <div class="container sns">
+                                    <a href="https://www.facebook.com/kobedigitallabo/" target="_blank"><i class="icon icon-facebook"></i></a>
+                                                                                                                                    <a href="https://blog.ismg.kdl.co.jp/feed"><i class="icon icon-feed2"></i></a>
+                      </div>
+        </div>
+        
+        <div class="copy">
+        (C) 2018 <a href="https://blog.ismg.kdl.co.jp">KDL 情&#039;s Café BLOG</a>. All rights reserved.        <!-- Powered by -->
+                        <!-- /Powered by -->
+        </div>
+
+    </footer>
+      
+</div><!--/site-wrapper-->
+
+
+<!-- BEGIN: WP Social Bookmarking Light FOOTER -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer>
+        {lang: "ja"}
+    </script>
+
+<!-- END: WP Social Bookmarking Light FOOTER -->
+<script type='text/javascript'>//<![CDATA[
+var countVars={"disqusShortname":"kdl-qing-s-cafe-blog"};
+//]]></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/plugins/disqus-comment-system/public/js/comment_count.js?ver=3.0.15'></script>
+<script type='text/javascript'>//<![CDATA[
+var embedVars={"disqusConfig":{"integration":"wordpress 3.0.15"},"disqusIdentifier":"1176 https:\/\/blog.ismg.kdl.co.jp\/?p=1176","disqusShortname":"kdl-qing-s-cafe-blog","disqusTitle":"SendGrid\u3001\u30e1\u30fc\u30eb\u30ef\u30a4\u30ba\u3001kMailer  kintone\u3068\u9023\u643a\u3059\u308b\u306a\u3089\u3069\u308c\u304c\u304a\u3059\u3059\u3081\uff01\uff1f","disqusUrl":"https:\/\/blog.ismg.kdl.co.jp\/kintone\/sendgridormailwise","postId":"1176"};
+//]]></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/plugins/disqus-comment-system/public/js/comment_embed.js?ver=3.0.15'></script>
+<script type='text/javascript'>//<![CDATA[
+var tocplus={"smooth_scroll":"1","visibility_show":"\u8868\u793a","visibility_hide":"\u975e\u8868\u793a","width":"Auto"};
+//]]></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/plugins/table-of-contents-plus/front.min.js?ver=1509'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/js/jquery.infinitescroll.min.js?ver=4.9.5'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-includes/js/imagesloaded.min.js?ver=3.2.0'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-includes/js/masonry.min.js?ver=3.3.2'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/js/common.min.js?ver=4.9.5'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-includes/js/comment-reply.min.js?ver=4.9.5'></script>
+<script type='text/javascript' src='https://blog.ismg.kdl.co.jp/wp-includes/js/wp-embed.min.js?ver=4.9.5'></script>
+
+<!-- JS+ -->
+<script type="text/javascript">jQuery(function($){var $container=$('#main');$('.navigation').css({display:'none'});$container.imagesLoaded(function(){$container.masonry({itemSelector:'.list'})});$container.infinitescroll({navSelector:"nav.navigation",nextSelector:"nav.navigation a.next",itemSelector:"article.post",loading:{msgText:'',finishedMsg:'',img:'https://blog.ismg.kdl.co.jp/wp-content/themes/liquid-insight/images/loader.gif'}},function(newElements){var $newElems=$(newElements).css({opacity:0});$newElems.imagesLoaded(function(){$newElems.animate({opacity:1});$container.masonry('appended',$newElems,true)})});offset=$('.navbar').offset().top;$(window).on('scroll',function(){if($(this).scrollTop()>offset){$('.navbar').addClass('navbar-fixed-top');$('.logo').addClass('fixed-top');}else{$('.navbar').removeClass('navbar-fixed-top');$('.logo').removeClass('fixed-top');}});});</script>
+
+</body>
+</html>

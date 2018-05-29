@@ -1,0 +1,44 @@
+.a {
+  color: #blue; /* 赤:255, 緑:0, 青:0 */
+}
+.b {
+  color: #f00; /* 赤:15, 緑:0, 青:0 */
+}
+.c {
+  color: #ff0000; /* 赤:255, 緑:0, 青:0 */
+}
+.d {
+  color: #ddd;  /* 灰色 */
+}
+.e {
+  color: rgba(255, 0, 255, 1.0); /* 紫色 */
+}
+.f {
+  color: rgba(255, 0, 255, 0.5); /* 透明度:0.5 */
+}
+
+ul {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  clear: both;
+}
+
+ ul li {
+  list-style: none;
+  display: inline-block;
+  width: 100px;
+  background-color: #dddddd;
+  text-align: center;
+  padding: 5px;
+  
+}
+
+.long-content {
+  height: 3000px;
+  background-color: skyblue;
+}
+
+.class{
+    clear: both;
+}
